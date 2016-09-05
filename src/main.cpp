@@ -1,3 +1,6 @@
+#include <iostream>
+#include <iterator>
+#include <math.h>
 #include <SFML/Graphics.hpp>
 
 #include "Star.hpp"
@@ -7,14 +10,13 @@ int main(void)
 {
   sf::RenderWindow window(sf::VideoMode(200, 200), "Space");
 
-  Star star = Star(20.f);
-  Planet earth = Planet(3.f);
+  std::vector<SpaceObject> objects = {Star(20.f, 3000000, sf::Vector2<float>(150.f, 10.f)),
+                                      Planet(5.f, 50, sf::Vector2<float>(10.f, 10.f)),
+                                      Planet(10.f, 2000000, sf::Vector2<float>(10.f, 150.f))};
 
-  star.setPosition(10.f, 10.f);
-  earth.setPosition(10.f, 10.f);
-
-  sf::CircleShape shape(100.f);
-  shape.setFillColor(sf::Color::Green);
+  objects[0].setFillColor(sf::Color::Yellow);
+  objects[1].setFillColor(sf::Color::Blue);
+  objects[2].setFillColor(sf::Color::Green);
 
   while (window.isOpen())
     {
@@ -26,7 +28,17 @@ int main(void)
         }
 
       window.clear();
-      window.draw(shape);
+
+      for (size_t i = 0; i < objects.size(); i++)
+        {
+          if (objects[i].getExists())
+            {
+              objects[i].collide(objects);
+              objects[i].move(objects[i].getGravitationalForce(objects) * 1000.f);
+              window.draw(objects[i]);
+            }
+        }
+
       window.display();
     }
 
