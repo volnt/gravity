@@ -12,11 +12,14 @@ class SpaceObject: public sf::CircleShape
 private:
   float _mass;
   bool _exists;
+  sf::Vector2<float> _speed;
 
 public:
   SpaceObject(const float, const float);
   SpaceObject(const float, const float, const sf::Vector2<float>);
 
+  sf::Vector2<float> getSpeed();
+  void setSpeed(const sf::Vector2<float>);
   float getMass();
   void setMass(const float);
   bool getExists();

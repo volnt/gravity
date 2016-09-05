@@ -7,6 +7,9 @@ SpaceObject::SpaceObject(float radius, float mass)
   this->setRadius(radius);
   this->setOrigin(radius, radius);
   _mass = mass;
+  this->setPosition(sf::Vector2<float>(0, 0));
+  _exists = true;
+  _speed = sf::Vector2<float>(0, 0);
 }
 
 SpaceObject::SpaceObject(float radius, float mass, sf::Vector2<float> position)
@@ -15,6 +18,8 @@ SpaceObject::SpaceObject(float radius, float mass, sf::Vector2<float> position)
   this->setOrigin(radius, radius);
   this->setPosition(position);
   _mass = mass;
+  _exists = true;
+  _speed = sf::Vector2<float>(0, 0);
 }
 
 float SpaceObject::getMass()
@@ -35,6 +40,16 @@ bool SpaceObject::getExists()
 void SpaceObject::setExists(const bool exists)
 {
   _exists = exists;
+}
+
+sf::Vector2<float> SpaceObject::getSpeed()
+{
+  return (_speed);
+}
+
+void SpaceObject::setSpeed(const sf::Vector2<float> speed)
+{
+  _speed = speed;
 }
 
 
