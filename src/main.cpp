@@ -36,18 +36,45 @@ int main(void)
 
   float elapsedTime = 0;
   int frames = 0;
+  bool movingView = false;
+  sf::Vector2<float> movingFrom;
 
   while (window.isOpen())
     {
       sf::Event event;
+
       while (window.pollEvent(event))
         {
           if (event.type == sf::Event::Closed)
             window.close();
-          if (event.type == sf::Event::MouseWheelScrolled)
+          else if (event.type == sf::Event::MouseWheelScrolled)
             {
               view.zoom(1 - event.mouseWheelScroll.delta / 10.f);
             }
+          else if (event.type == sf::Event::MouseButtonPressed)
+            {
+              if (event.mouseButton.button == sf::Mouse::Left)
+                {
+                  movingView = true;
+                  movingFrom.x = event.mouseButton.x;
+                  movingFrom.y = event.mouseButton.y;
+                }
+            }
+          else if (event.type == sf::Event::MouseButtonReleased)
+            {
+              if (event.mouseButton.button == sf::Mouse::Left)
+                movingView = false;
+            }
+          else if (event.type == sf::Event::MouseMoved)
+            {
+              if (movingView)
+                {
+                  view.move(movingFrom - sf::Vector2<float>(event.mouseMove.x, event.mouseMove.y));
+                  movingFrom.x = event.mouseMove.x;
+                  movingFrom.y = event.mouseMove.y;
+                }
+            }
+
         }
 
       elapsedTime = clock.getElapsedTime().asSeconds();
