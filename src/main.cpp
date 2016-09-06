@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iterator>
+#include <string>
 #include <math.h>
 #include <SFML/Graphics.hpp>
 
@@ -22,6 +23,15 @@ int main(void)
   objects[2].setSpeed(sf::Vector2<float>(0.003, 0.003));
 
   sf::Clock clock;
+  sf::Text fps;
+  sf::Font font;
+  font.loadFromFile("VCR_OSD_Mono.ttf");
+  fps.setFont(font);
+  fps.setString("hello");
+  fps.setPosition(20, 20);
+  fps.setColor(sf::Color::White);
+  fps.setCharacterSize(10);
+
   float elapsedTime = 0;
   int frames = 0;
 
@@ -38,7 +48,7 @@ int main(void)
 
       if (elapsedTime > 1)
         {
-          std::cout << frames << std::endl;
+          fps.setString(std::to_string(frames) + " fps");
           frames = 0;
           clock.restart();
         }
@@ -59,7 +69,7 @@ int main(void)
               window.draw(objects[i]);
             }
         }
-
+      window.draw(fps);
       window.display();
     }
 
