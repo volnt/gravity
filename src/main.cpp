@@ -10,6 +10,8 @@
 int main(void)
 {
   sf::RenderWindow window(sf::VideoMode(800, 800), "Space");
+  sf::View view = window.getDefaultView();
+
   window.setFramerateLimit(60);
 
   std::vector<SpaceObject> objects = {Star(20.f, 3000000, sf::Vector2<float>(400.f, 400.f)),
@@ -42,6 +44,10 @@ int main(void)
         {
           if (event.type == sf::Event::Closed)
             window.close();
+          if (event.type == sf::Event::MouseWheelScrolled)
+            {
+              view.zoom(1 - event.mouseWheelScroll.delta / 10.f);
+            }
         }
 
       elapsedTime = clock.getElapsedTime().asSeconds();
@@ -59,6 +65,7 @@ int main(void)
 
       window.clear();
 
+      window.setView(view);
       for (size_t i = 0; i < objects.size(); i++)
         {
           if (objects[i].getExists())
@@ -69,6 +76,7 @@ int main(void)
               window.draw(objects[i]);
             }
         }
+      window.setView(window.getDefaultView());
       window.draw(fps);
       window.display();
     }
