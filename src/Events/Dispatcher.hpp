@@ -2,18 +2,18 @@
 #define __DISPATCHER_HPP__
 
 #include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "Listener.hpp"
 
 class Dispatcher
 {
 private:
-  std::vector<Listener> _listerners;
+  std::map<sf::Event::EventType, std::vector<Listener *>> _listeners;
 
 public:
-  void registerListener(const Listener &);
-  void unregisterListener(const Listener &);
-  void dispatch(const Event &);
+  void registerListener(Listener &);
+  void dispatch(const sf::Event &) const;
 };
 
 #endif
