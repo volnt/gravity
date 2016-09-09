@@ -12,6 +12,7 @@
 #include "Events/Listeners/Zoom.hpp"
 #include "Events/Listeners/Move.hpp"
 #include "Events/Listeners/Close.hpp"
+#include "Events/Listeners/CreatePlanet.hpp"
 
 
 int main(void)
@@ -23,6 +24,7 @@ int main(void)
   auto close            = Listener::Close(std::vector<sf::Event::EventType> {sf::Event::Closed});
   auto move             = Listener::Move(std::vector<sf::Event::EventType> {
       sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved});
+  auto createPlanet     = Listener::CreatePlanet(std::vector<sf::Event::EventType> { sf::Event::MouseButtonPressed });
   auto universe         = Universe();
   auto earth            = Planet(5.f, 1, sf::Vector2<float>(300.f, 300.f));
 
@@ -34,6 +36,7 @@ int main(void)
   dispatcher.registerListener(zoom);
   dispatcher.registerListener(close);
   dispatcher.registerListener(move);
+  dispatcher.registerListener(createPlanet);
 
 
   // TODO : Implement HUD abstraction
