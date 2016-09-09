@@ -15,19 +15,22 @@ private:
   sf::Vector2<float> _speed;
 
 public:
-  SpaceObject(const float, const float);
-  SpaceObject(const float, const float, const sf::Vector2<float>);
+  SpaceObject(float, float);
+  SpaceObject(float, float, sf::Vector2<float>);
 
-  sf::Vector2<float> getSpeed();
+  /* Getters */
+  sf::Vector2<float> getSpeed() const;
+  float getMass() const;
+  bool getExists() const;
+
+  /* Setters */
   void setSpeed(const sf::Vector2<float>);
-  float getMass();
   void setMass(const float);
-  bool getExists();
   void setExists(const bool);
 
+  /* Methods */
   void collide(std::vector<SpaceObject> &);
-  sf::Vector2<float> getGravitationalForce(std::vector<SpaceObject> &);
-  sf::Vector2<float> getDirection(const SpaceObject);
+  sf::Vector2<float> getGravitationalForce(const std::vector<SpaceObject> &) const;
 };
 
 #endif

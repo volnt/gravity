@@ -13,13 +13,6 @@
 #include "Events/Listeners/Close.hpp"
 
 
-/* TOREAD
- *
- * Read about pointers vs vectors
- * Look for hashmap<int, T> with 0(1) -> O(n) get complexity
- * Read about const good-practices in C++
- *
- */
 int main(void)
 {
   sf::RenderWindow window(sf::VideoMode(800, 800), "Space");

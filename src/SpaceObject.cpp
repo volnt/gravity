@@ -1,53 +1,52 @@
 #include <SFML/System.hpp>
 
 #include "SpaceObject.hpp"
+#include "Position.hpp"
 
-SpaceObject::SpaceObject(float radius, float mass)
+SpaceObject::SpaceObject(float radius, float mass) : sf::CircleShape(radius)
 {
-  this->setRadius(radius);
-  this->setOrigin(radius, radius);
-  _mass = mass;
   this->setPosition(sf::Vector2<float>(0, 0));
-  _exists = true;
-  _speed = sf::Vector2<float>(0, 0);
-}
-
-SpaceObject::SpaceObject(float radius, float mass, sf::Vector2<float> position)
-{
-  this->setRadius(radius);
   this->setOrigin(radius, radius);
-  this->setPosition(position);
   _mass = mass;
   _exists = true;
   _speed = sf::Vector2<float>(0, 0);
 }
 
-float SpaceObject::getMass()
+SpaceObject::SpaceObject(float radius, float mass, sf::Vector2<float> position) : sf::CircleShape(radius)
+{
+  this->setPosition(position);
+  this->setOrigin(radius, radius);
+  _mass = mass;
+  _exists = true;
+  _speed = sf::Vector2<float>(0, 0);
+}
+
+float SpaceObject::getMass() const
 {
   return (_mass);
 }
 
-void SpaceObject::setMass(const float mass)
+void SpaceObject::setMass(float mass)
 {
   _mass = mass;
 }
 
-bool SpaceObject::getExists()
+bool SpaceObject::getExists() const
 {
   return (_exists);
 }
 
-void SpaceObject::setExists(const bool exists)
+void SpaceObject::setExists(bool exists)
 {
   _exists = exists;
 }
 
-sf::Vector2<float> SpaceObject::getSpeed()
+sf::Vector2<float> SpaceObject::getSpeed() const
 {
   return (_speed);
 }
 
-void SpaceObject::setSpeed(const sf::Vector2<float> speed)
+void SpaceObject::setSpeed(sf::Vector2<float> speed)
 {
   _speed = speed;
 }
@@ -55,44 +54,35 @@ void SpaceObject::setSpeed(const sf::Vector2<float> speed)
 
 void SpaceObject::collide(std::vector<SpaceObject> &objects)
 {
-  sf::Vector2<float> direction;
-
-  for (size_t i = 0; i < objects.size(); i++)
+  for (auto &object: objects)
     {
-      if (&objects[i] != this && objects[i].getExists())
+      if (&object != this && object.getExists())
         {
-          direction = this->getDirection(objects[i]);
-          if (direction.x * direction.x + direction.y * direction.y <=
-              (this->getRadius() + objects[i].getRadius()) * (this->getRadius() + objects[i].getRadius()) &&
-              this->getMass() >= objects[i].getMass())
+          if (getDistance(this->getPosition(), object.getPosition()) <=
+              (this->getRadius() + object.getRadius()) * (this->getRadius() + object.getRadius()) &&
+              this->getMass() >= object.getMass())
             {
-              objects[i].setExists(false);
-              this->setMass(this->getMass() + objects[i].getMass());
+              object.setExists(false);
+              this->setMass(this->getMass() + object.getMass());
             }
         }
     }
 }
 
-sf::Vector2<float> SpaceObject::getGravitationalForce(std::vector<SpaceObject> &objects)
+sf::Vector2<float> SpaceObject::getGravitationalForce(const std::vector<SpaceObject> &objects) const
 {
   float force;
   sf::Vector2<float> direction;
   sf::Vector2<float> finalDirection;
 
-  for (size_t i = 0; i < objects.size(); i++)
+  for (auto &object: objects)
     {
-      if (&objects[i] != this && objects[i].getExists())
+      if (&object != this && object.getExists())
         {
-          direction = this->getDirection(objects[i]);
-          force = (UGC * this->getMass() * objects[i].getMass() /
-                   (direction.x * direction.x + direction.y * direction.y));
-          finalDirection += (force / this->getMass() * direction);
+          direction = getDirection(this->getPosition(), object.getPosition());
+          force = UGC * this->getMass() * object.getMass() / getDistance(direction);
+          finalDirection += force / this->getMass() * direction;
         }
     }
   return (finalDirection);
-}
-
-sf::Vector2<float> SpaceObject::getDirection(const SpaceObject object)
-{
-  return (object.getPosition() - this->getPosition());
 }
