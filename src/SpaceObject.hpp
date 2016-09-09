@@ -29,6 +29,8 @@ public:
   void setExists(const bool);
 
   /* Methods */
+  float getDistance(const SpaceObject &) const;
+  void collide(SpaceObject &);
   void collide(std::vector<SpaceObject> &);
   sf::Vector2<float> getGravitationalForce(const std::vector<SpaceObject> &) const;
 };

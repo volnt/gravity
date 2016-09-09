@@ -51,21 +51,29 @@ void SpaceObject::setSpeed(sf::Vector2<float> speed)
   _speed = speed;
 }
 
+float SpaceObject::getDistance(const SpaceObject &object) const
+{
+  return (Position::getDistance(this->getPosition(), object.getPosition()) -
+          (this->getRadius() + object.getRadius()) * (this->getRadius() + object.getRadius()));
+}
+
+void SpaceObject::collide(SpaceObject &object)
+{
+  if (&object != this && object.getExists())
+    {
+      if (this->getDistance(object) <= 0 && this->getMass() >= object.getMass())
+        {
+          object.setExists(false);
+          this->setMass(this->getMass() + object.getMass());
+        }
+    }
+}
 
 void SpaceObject::collide(std::vector<SpaceObject> &objects)
 {
   for (auto &object: objects)
     {
-      if (&object != this && object.getExists())
-        {
-          if (getDistance(this->getPosition(), object.getPosition()) <=
-              (this->getRadius() + object.getRadius()) * (this->getRadius() + object.getRadius()) &&
-              this->getMass() >= object.getMass())
-            {
-              object.setExists(false);
-              this->setMass(this->getMass() + object.getMass());
-            }
-        }
+      this->collide(object);
     }
 }
 
@@ -79,8 +87,8 @@ sf::Vector2<float> SpaceObject::getGravitationalForce(const std::vector<SpaceObj
     {
       if (&object != this && object.getExists())
         {
-          direction = getDirection(this->getPosition(), object.getPosition());
-          force = UGC * this->getMass() * object.getMass() / getDistance(direction);
+          direction = Position::getDirection(this->getPosition(), object.getPosition());
+          force = UGC * this->getMass() * object.getMass() / Position::getDistance(direction);
           finalDirection += force / this->getMass() * direction;
         }
     }
