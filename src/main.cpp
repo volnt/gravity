@@ -23,11 +23,11 @@
 int main(void)
 {
   sf::RenderWindow window(sf::VideoMode(800, 800), "Space");
-  sf::View view = window.getDefaultView();
-  Dispatcher dispatcher = Dispatcher();
-  Zoom zoom = Zoom(std::vector<sf::Event::EventType> {sf::Event::MouseWheelScrolled});
-  Close close = Close(std::vector<sf::Event::EventType> {sf::Event::Closed});
-  Move move = Move(std::vector<sf::Event::EventType> {
+  auto view = window.getDefaultView();
+  auto dispatcher = Dispatcher();
+  auto zoom = Listener::Zoom(std::vector<sf::Event::EventType> {sf::Event::MouseWheelScrolled});
+  auto close = Listener::Close(std::vector<sf::Event::EventType> {sf::Event::Closed});
+  auto move = Listener::Move(std::vector<sf::Event::EventType> {
       sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved});
 
   dispatcher.registerListener(zoom);

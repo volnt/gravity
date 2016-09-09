@@ -1,15 +1,13 @@
-#include <iostream>
 #include "Dispatcher.hpp"
 
-void Dispatcher::registerListener(Listener &listener)
+void Dispatcher::registerListener(IListener &listener)
 {
   for (auto eventType: listener.getEventTypes())
     {
       if (_listeners.find(eventType) == _listeners.end())
         {
-          _listeners[eventType] = std::vector<Listener*>();
+          _listeners[eventType] = std::vector<IListener*>();
         }
-      std::cout << "Registering listener with eventType " << eventType << std::endl;
       _listeners[eventType].push_back(&listener);
     }
 }
@@ -20,7 +18,6 @@ void Dispatcher::dispatch(const sf::Event &event, sf::View &view, sf::RenderWind
     {
       for (auto &listener: _listeners.find(event.type)->second)
         {
-          std::cout << "Sending event" << std::endl;
           listener->onEvent(event, view, window);
         }
     }

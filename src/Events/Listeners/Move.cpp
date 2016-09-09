@@ -1,7 +1,11 @@
-#include <iostream>
 #include "Move.hpp"
 
-void Move::onEvent(const sf::Event &event, sf::View &view, sf::RenderWindow &window)
+Listener::Move::Move(const std::vector<sf::Event::EventType> &eventTypes) : IListener(eventTypes)
+{
+  _isMoving = false;
+}
+
+void Listener::Move::onEvent(const sf::Event &event, sf::View &view, sf::RenderWindow &window)
 {
   if (event.type == sf::Event::MouseButtonPressed)
     {

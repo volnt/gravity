@@ -4,13 +4,16 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "../Listener.hpp"
+#include "../IListener.hpp"
 
-class Zoom: public Listener
+namespace Listener
 {
-public:
-  using Listener::Listener;
-  virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &);
-};
+  class Zoom: public IListener
+  {
+  public:
+    using IListener::IListener;
+    virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &);
+  };
+}
 
 #endif

@@ -4,17 +4,20 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "../Listener.hpp"
+#include "../IListener.hpp"
 
-class Move: public Listener
+namespace Listener
 {
-private:
-  bool _isMoving;
-  sf::Vector2<float> _movingFrom;
+  class Move: public IListener
+  {
+  private:
+    bool _isMoving;
+    sf::Vector2<float> _movingFrom;
 
-public:
-  using Listener::Listener;
-  virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &);
-};
+  public:
+    Move(const std::vector<sf::Event::EventType> &);
+    virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &);
+  };
+}
 
 #endif

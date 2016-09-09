@@ -4,17 +4,17 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-class Listener
+class IListener
 {
 private:
   std::vector<sf::Event::EventType> _eventTypes;
 
 public:
-  Listener(const std::vector<sf::Event::EventType> &);
-  ~Listener();
+  IListener(const std::vector<sf::Event::EventType> &);
+  ~IListener();
   const std::vector<sf::Event::EventType> &getEventTypes() const;
 
-  virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &) {};
+  virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &) = 0;
 };
 
 #endif
