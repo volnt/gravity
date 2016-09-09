@@ -16,18 +16,18 @@
 int main(void)
 {
   sf::RenderWindow window(sf::VideoMode(800, 800), "Space");
-  auto view = window.getDefaultView();
-  auto dispatcher = Dispatcher();
-  auto zoom = Listener::Zoom(std::vector<sf::Event::EventType> {sf::Event::MouseWheelScrolled});
-  auto close = Listener::Close(std::vector<sf::Event::EventType> {sf::Event::Closed});
-  auto move = Listener::Move(std::vector<sf::Event::EventType> {
+  auto view             = window.getDefaultView();
+  auto dispatcher       = Dispatcher();
+  auto zoom             = Listener::Zoom(std::vector<sf::Event::EventType> {sf::Event::MouseWheelScrolled});
+  auto close            = Listener::Close(std::vector<sf::Event::EventType> {sf::Event::Closed});
+  auto move             = Listener::Move(std::vector<sf::Event::EventType> {
       sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved});
+
+  window.setFramerateLimit(60);
 
   dispatcher.registerListener(zoom);
   dispatcher.registerListener(close);
   dispatcher.registerListener(move);
-
-  window.setFramerateLimit(60);
 
   // TODO : Implement universe abstraction
   // TODO : Implement dynamic spaceobject creation
