@@ -1,19 +1,43 @@
 #include <iostream>
 #include <iterator>
+#include <vector>
 #include <string>
 #include <math.h>
 #include <SFML/Graphics.hpp>
 
 #include "Star.hpp"
 #include "Planet.hpp"
+#include "Events/Dispatcher.hpp"
+#include "Events/Listeners/Zoom.hpp"
+#include "Events/Listeners/Move.hpp"
+#include "Events/Listeners/Close.hpp"
 
+
+/* TOREAD
+ *
+ * Read about pointers vs vectors
+ * Look for hashmap<int, T> with 0(1) -> O(n) get complexity
+ * Read about const good-practices in C++
+ *
+ */
 int main(void)
 {
   sf::RenderWindow window(sf::VideoMode(800, 800), "Space");
   sf::View view = window.getDefaultView();
+  Dispatcher dispatcher = Dispatcher();
+  Zoom zoom = Zoom(std::vector<sf::Event::EventType> {sf::Event::MouseWheelScrolled});
+  Close close = Close(std::vector<sf::Event::EventType> {sf::Event::Closed});
+  Move move = Move(std::vector<sf::Event::EventType> {
+      sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved});
+
+  dispatcher.registerListener(zoom);
+  dispatcher.registerListener(close);
+  dispatcher.registerListener(move);
 
   window.setFramerateLimit(60);
 
+  // TODO : Implement universe abstraction
+  // TODO : Implement dynamic spaceobject creation
   std::vector<SpaceObject> objects = {Star(20.f, 3000000, sf::Vector2<float>(400.f, 400.f)),
                                       Planet(5.f, 1, sf::Vector2<float>(300.f, 300.f)),
                                       Planet(10.f, 1, sf::Vector2<float>(210.f, 350.f))};
@@ -24,6 +48,7 @@ int main(void)
   objects[2].setFillColor(sf::Color::Green);
   objects[2].setSpeed(sf::Vector2<float>(0.003, 0.003));
 
+  // TODO : Implement HUD abstraction
   sf::Clock clock;
   sf::Text fps;
   sf::Font font;
@@ -45,36 +70,7 @@ int main(void)
 
       while (window.pollEvent(event))
         {
-          if (event.type == sf::Event::Closed)
-            window.close();
-          else if (event.type == sf::Event::MouseWheelScrolled)
-            {
-              view.zoom(1 - event.mouseWheelScroll.delta / 10.f);
-            }
-          else if (event.type == sf::Event::MouseButtonPressed)
-            {
-              if (event.mouseButton.button == sf::Mouse::Left)
-                {
-                  movingView = true;
-                  movingFrom.x = event.mouseButton.x;
-                  movingFrom.y = event.mouseButton.y;
-                }
-            }
-          else if (event.type == sf::Event::MouseButtonReleased)
-            {
-              if (event.mouseButton.button == sf::Mouse::Left)
-                movingView = false;
-            }
-          else if (event.type == sf::Event::MouseMoved)
-            {
-              if (movingView)
-                {
-                  view.move(movingFrom - sf::Vector2<float>(event.mouseMove.x, event.mouseMove.y));
-                  movingFrom.x = event.mouseMove.x;
-                  movingFrom.y = event.mouseMove.y;
-                }
-            }
-
+          dispatcher.dispatch(event, view, window);
         }
 
       elapsedTime = clock.getElapsedTime().asSeconds();

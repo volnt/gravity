@@ -13,7 +13,7 @@ private:
 
 public:
   void registerListener(Listener &);
-  void dispatch(const sf::Event &) const;
+  void dispatch(const sf::Event &, sf::View &, sf::RenderWindow &);
 };
 
 #endif

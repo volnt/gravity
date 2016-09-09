@@ -10,9 +10,11 @@ private:
   std::vector<sf::Event::EventType> _eventTypes;
 
 public:
+  Listener(const std::vector<sf::Event::EventType> &);
+  ~Listener();
   const std::vector<sf::Event::EventType> &getEventTypes() const;
 
-  virtual void onEvent(const sf::Event &) const = 0;
+  virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &) {};
 };
 
 #endif
