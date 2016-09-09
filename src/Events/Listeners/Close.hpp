@@ -12,7 +12,7 @@ namespace Listener
   {
   public:
     using IListener::IListener;
-    virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &);
+    virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &, Universe &);
   };
 }
 

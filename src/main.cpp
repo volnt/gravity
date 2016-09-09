@@ -56,7 +56,7 @@ int main(void)
 
       while (window.pollEvent(event))
         {
-          dispatcher.dispatch(event, view, window);
+          dispatcher.dispatch(event, view, window, universe);
         }
 
       elapsedTime = clock.getElapsedTime().asSeconds();

@@ -14,7 +14,7 @@ public:
   ~IListener();
   const std::vector<sf::Event::EventType> &getEventTypes() const;
 
-  virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &) = 0;
+  virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &, Universe &) = 0;
 };
 
 #endif

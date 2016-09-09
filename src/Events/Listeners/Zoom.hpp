@@ -5,6 +5,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "../IListener.hpp"
+#include "../../Universe.hpp"
+
 
 namespace Listener
 {
@@ -12,7 +14,7 @@ namespace Listener
   {
   public:
     using IListener::IListener;
-    virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &);
+    virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &, Universe &);
   };
 }
 

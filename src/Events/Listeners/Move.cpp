@@ -1,3 +1,4 @@
+#include "../../Universe.hpp"
 #include "Move.hpp"
 
 Listener::Move::Move(const std::vector<sf::Event::EventType> &eventTypes) : IListener(eventTypes)
@@ -5,7 +6,7 @@ Listener::Move::Move(const std::vector<sf::Event::EventType> &eventTypes) : ILis
   _isMoving = false;
 }
 
-void Listener::Move::onEvent(const sf::Event &event, sf::View &view, sf::RenderWindow &window)
+void Listener::Move::onEvent(const sf::Event &event, sf::View &view, sf::RenderWindow &window, Universe &universe)
 {
   if (event.type == sf::Event::MouseButtonPressed)
     {

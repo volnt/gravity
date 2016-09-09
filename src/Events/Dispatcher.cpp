@@ -1,3 +1,4 @@
+#include "../Universe.hpp"
 #include "Dispatcher.hpp"
 
 void Dispatcher::registerListener(IListener &listener)
@@ -12,13 +13,13 @@ void Dispatcher::registerListener(IListener &listener)
     }
 }
 
-void Dispatcher::dispatch(const sf::Event &event, sf::View &view, sf::RenderWindow &window)
+void Dispatcher::dispatch(const sf::Event &event, sf::View &view, sf::RenderWindow &window, Universe &universe)
 {
   if (_listeners.find(event.type) != _listeners.end())
     {
       for (auto &listener: _listeners.find(event.type)->second)
         {
-          listener->onEvent(event, view, window);
+          listener->onEvent(event, view, window, universe);
         }
     }
 }

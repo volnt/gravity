@@ -16,7 +16,7 @@ namespace Listener
 
   public:
     Move(const std::vector<sf::Event::EventType> &);
-    virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &);
+    virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &, Universe &);
   };
 }
 
