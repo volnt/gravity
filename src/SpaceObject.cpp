@@ -77,6 +77,9 @@ void SpaceObject::collide(std::vector<SpaceObject> &objects)
     }
 }
 
+/*
+ * Returns acceleration in m/(s*s)
+ */
 sf::Vector2<float> SpaceObject::getGravitationalForce(const std::vector<SpaceObject> &objects) const
 {
   float force;
@@ -89,8 +92,9 @@ sf::Vector2<float> SpaceObject::getGravitationalForce(const std::vector<SpaceObj
         {
           direction = Position::getDirection(this->getPosition(), object.getPosition());
           force = UGC * this->getMass() * object.getMass() / Position::getDistance(direction);
-          finalDirection += force / this->getMass() * direction;
+          finalDirection += force / this->getMass() * Position::getUnitVector(direction);
         }
     }
+
   return (finalDirection);
 }

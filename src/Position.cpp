@@ -1,3 +1,4 @@
+#include <cmath>
 #include <SFML/System.hpp>
 
 #include "Position.hpp"
@@ -5,6 +6,11 @@
 sf::Vector2<float> Position::getDirection(const sf::Vector2<float> &first, const sf::Vector2<float> &second)
 {
   return (first - second);
+}
+
+sf::Vector2<float> Position::getUnitVector(const sf::Vector2<float> &vector)
+{
+  return (vector / (float)(sqrt(Position::getDistance(vector))));
 }
 
 float Position::getDistance(const sf::Vector2<float> &first, const sf::Vector2<float> &second)
