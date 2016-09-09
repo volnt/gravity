@@ -51,6 +51,11 @@ void SpaceObject::setSpeed(sf::Vector2<float> speed)
   _speed = speed;
 }
 
+void SpaceObject::accelerate(const sf::Vector2<float> &acceleration)
+{
+  _speed += acceleration;
+}
+
 float SpaceObject::getDistance(const SpaceObject &object) const
 {
   return (Position::getDistance(this->getPosition(), object.getPosition()) -

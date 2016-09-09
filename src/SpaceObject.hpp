@@ -29,6 +29,7 @@ public:
   void setExists(const bool);
 
   /* Methods */
+  void accelerate(const sf::Vector2<float> &);
   float getDistance(const SpaceObject &) const;
   void collide(SpaceObject &);
   void collide(std::vector<SpaceObject> &);

@@ -27,6 +27,7 @@ int main(void)
   auto createPlanet     = Listener::CreatePlanet(std::vector<sf::Event::EventType> { sf::Event::MouseButtonPressed });
   auto universe         = Universe();
   auto earth            = Planet(5.f, 1, sf::Vector2<float>(300.f, 300.f));
+  float elapsedTime     = 0.f;
 
   earth.setFillColor(sf::Color::Blue);
   universe.addObject(earth);
@@ -59,17 +60,21 @@ int main(void)
           dispatcher.dispatch(event, view, window, universe);
         }
 
-      fps.setString(std::to_string((int)(1 / clock.getElapsedTime().asSeconds())) + " fps");
+      elapsedTime = clock.getElapsedTime().asSeconds();
       clock.restart();
 
       window.clear();
+
+      /* Update & draw universe */
       window.setView(view);
-      universe.update();
+      universe.update(elapsedTime);
       window.draw(universe);
 
-
+      /* Update and draw HUD */
       window.setView(window.getDefaultView());
+      fps.setString(std::to_string((int)(1 / elapsedTime)) + " fps");
       window.draw(fps);
+
       window.display();
     }
 

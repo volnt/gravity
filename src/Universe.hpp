@@ -13,7 +13,7 @@ private:
 public:
   void addObject(SpaceObject &);
 
-  void update();
+  void update(float);
   virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
 

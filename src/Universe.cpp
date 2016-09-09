@@ -5,15 +5,15 @@ void Universe::addObject(SpaceObject &object)
   _objects.push_back(object);
 }
 
-void Universe::update()
+void Universe::update(float elpasedTime)
 {
   for (auto &object: _objects)
     {
       if (object.getExists())
         {
           object.collide(_objects);
-          object.setSpeed(object.getSpeed() + object.getGravitationalForce(_objects));
-          object.move(object.getSpeed() * 10.f);
+          object.accelerate(object.getGravitationalForce(_objects) * elpasedTime);
+          object.move(object.getSpeed());
         }
     }
 }
