@@ -50,9 +50,6 @@ int main(void)
   fps.setColor(sf::Color::White);
   fps.setCharacterSize(10);
 
-  float elapsedTime = 0;
-  int frames = 0;
-
   while (window.isOpen())
     {
       sf::Event event;
@@ -62,18 +59,8 @@ int main(void)
           dispatcher.dispatch(event, view, window, universe);
         }
 
-      elapsedTime = clock.getElapsedTime().asSeconds();
-
-      if (elapsedTime > 1)
-        {
-          fps.setString(std::to_string(frames) + " fps");
-          frames = 0;
-          clock.restart();
-        }
-      else
-        {
-          frames += 1;
-        }
+      fps.setString(std::to_string((int)(1 / clock.getElapsedTime().asSeconds())) + " fps");
+      clock.restart();
 
       window.clear();
       window.setView(view);
