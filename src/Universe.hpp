@@ -8,7 +8,7 @@
 class Universe: public sf::Drawable
 {
 private:
-  std::vector<SpaceObject> _objects;
+  std::vector<SpaceObject *> _objects;
 
 public:
   void addObject(SpaceObject &);

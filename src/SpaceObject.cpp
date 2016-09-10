@@ -74,18 +74,18 @@ void SpaceObject::collide(SpaceObject &object)
     }
 }
 
-void SpaceObject::collide(std::vector<SpaceObject> &objects)
+void SpaceObject::collide(std::vector<SpaceObject *> &objects)
 {
   for (auto &object: objects)
     {
-      this->collide(object);
+      this->collide(*object);
     }
 }
 
 /*
  * Returns acceleration in m/(s*s)
  */
-sf::Vector2<float> SpaceObject::getGravitationalForce(const std::vector<SpaceObject> &objects) const
+sf::Vector2<float> SpaceObject::getGravitationalForce(const std::vector<SpaceObject *> &objects) const
 {
   float force;
   sf::Vector2<float> direction;
@@ -93,13 +93,23 @@ sf::Vector2<float> SpaceObject::getGravitationalForce(const std::vector<SpaceObj
 
   for (auto &object: objects)
     {
-      if (&object != this && object.getExists())
+      if (object != this && object->getExists())
         {
-          direction = Position::getDirection(this->getPosition(), object.getPosition());
-          force = UGC * this->getMass() * object.getMass() / Position::getDistance(direction);
+          direction = Position::getDirection(this->getPosition(), object->getPosition());
+          force = UGC * this->getMass() * object->getMass() / Position::getDistance(direction);
           finalDirection += force / this->getMass() * Position::getUnitVector(direction);
         }
     }
 
   return (finalDirection);
+}
+
+void SpaceObject::update(float elapsedTime, std::vector<SpaceObject *> &objects)
+{
+  if (this->getExists())
+    {
+      this->collide(objects);
+      this->accelerate(this->getGravitationalForce(objects) * elapsedTime);
+      this->move(this->getSpeed());
+    }
 }
