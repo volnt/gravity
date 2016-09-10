@@ -2,12 +2,14 @@
 #include <iterator>
 #include <vector>
 #include <string>
-#include <math.h>
+#include <cmath>
 #include <SFML/Graphics.hpp>
 
 #include "Universe.hpp"
 #include "Star.hpp"
 #include "Planet.hpp"
+#include "HUD.hpp"
+#include "FPS.hpp"
 #include "Events/Dispatcher.hpp"
 #include "Events/Listeners/Zoom.hpp"
 #include "Events/Listeners/Move.hpp"
@@ -27,7 +29,11 @@ int main(void)
   auto createPlanet     = Listener::CreatePlanet(std::vector<sf::Event::EventType> { sf::Event::MouseButtonPressed });
   auto universe         = Universe();
   auto earth            = Planet(5.f, 1, sf::Vector2<float>(300.f, 300.f));
-  float elapsedTime     = 0.f;
+  auto elapsedTime      = 0.f;
+  auto hud              = HUD();
+  auto fps              = FPS();
+
+  hud.addObject(&fps);
 
   earth.setFillColor(sf::Color::Blue);
   universe.addObject(earth);
@@ -40,16 +46,7 @@ int main(void)
   dispatcher.registerListener(createPlanet);
 
 
-  // TODO : Implement HUD abstraction
   sf::Clock clock;
-  sf::Text fps;
-  sf::Font font;
-  font.loadFromFile("VCR_OSD_Mono.ttf");
-  fps.setFont(font);
-  fps.setString("hello");
-  fps.setPosition(20, 20);
-  fps.setColor(sf::Color::White);
-  fps.setCharacterSize(10);
 
   while (window.isOpen())
     {
@@ -60,6 +57,7 @@ int main(void)
           dispatcher.dispatch(event, view, window, universe);
         }
 
+      /* Compute elpasedTime since last frame */
       elapsedTime = clock.getElapsedTime().asSeconds();
       clock.restart();
 
@@ -72,8 +70,8 @@ int main(void)
 
       /* Update and draw HUD */
       window.setView(window.getDefaultView());
-      fps.setString(std::to_string((int)(1 / elapsedTime)) + " fps");
-      window.draw(fps);
+      hud.update(elapsedTime);
+      window.draw(hud);
 
       window.display();
     }
