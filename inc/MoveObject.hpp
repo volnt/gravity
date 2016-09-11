@@ -8,10 +8,10 @@
 
 namespace Listener
 {
-  class MovePlanet: public IListener
+  class MoveObject: public IListener
   {
   private:
-    SpaceObject *_movingPlanet;
+    SpaceObject *_movingObject;
 
   public:
     using IListener::IListener;

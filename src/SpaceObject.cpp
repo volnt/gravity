@@ -62,6 +62,11 @@ float SpaceObject::getDistance(const SpaceObject &object) const
           (this->getRadius() + object.getRadius()) * (this->getRadius() + object.getRadius()));
 }
 
+float SpaceObject::getDistance(const sf::Vector2<float> &position) const
+{
+  return (Position::getDistance(this->getPosition(), position) - (this->getRadius() * this->getRadius()));
+}
+
 void SpaceObject::collide(SpaceObject &object)
 {
   if (&object != this && object.getExists())

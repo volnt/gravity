@@ -16,10 +16,11 @@ public:
   ~IListener();
   const std::vector<sf::Event::EventType> &getEventTypes() const;
 
-  template <typename T, typename U>
-  const sf::Vector2<T> pixelToCoord(const sf::Vector2<U> &, const sf::RenderWindow &, const sf::View &) const;
-
   virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &, Universe &) = 0;
+
+  /* Listeners helpers */
+  const sf::Vector2<float> pixelToCoord(const sf::Vector2<int> &, const sf::RenderWindow &, const sf::View &) const;
+  const sf::Vector2<float> pixelToCoord(const sf::Vector2<float> &, const sf::RenderWindow &, const sf::View &) const;
 };
 
 #endif

@@ -15,6 +15,7 @@
 #include "Move.hpp"
 #include "Close.hpp"
 #include "CreatePlanet.hpp"
+#include "MoveObject.hpp"
 
 
 int main(void)
@@ -22,11 +23,13 @@ int main(void)
   sf::RenderWindow window(sf::VideoMode(800, 800), "Space");
   auto view             = window.getDefaultView();
   auto dispatcher       = Dispatcher();
-  auto zoom             = Listener::Zoom(std::vector<sf::Event::EventType> {sf::Event::MouseWheelScrolled});
-  auto close            = Listener::Close(std::vector<sf::Event::EventType> {sf::Event::Closed});
+  auto zoom             = Listener::Zoom(std::vector<sf::Event::EventType> { sf::Event::MouseWheelScrolled });
+  auto close            = Listener::Close(std::vector<sf::Event::EventType> { sf::Event::Closed });
   auto move             = Listener::Move(std::vector<sf::Event::EventType> {
-      sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved});
+      sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved });
   auto createPlanet     = Listener::CreatePlanet(std::vector<sf::Event::EventType> { sf::Event::MouseButtonPressed });
+  auto moveObject       = Listener::MoveObject(std::vector<sf::Event::EventType> {
+      sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved });
   auto universe         = Universe();
   auto earth            = Planet(5.f, 1, sf::Vector2<float>(300.f, 300.f));
   auto elapsedTime      = 0.f;
@@ -44,6 +47,7 @@ int main(void)
   dispatcher.registerListener(close);
   dispatcher.registerListener(move);
   dispatcher.registerListener(createPlanet);
+  dispatcher.registerListener(moveObject);
 
 
   sf::Clock clock;
