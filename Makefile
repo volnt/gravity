@@ -4,7 +4,7 @@ OBJ=$(patsubst src/%.cpp,obj/%.o,$(SRC))
 
 CC=g++
 LD_FLAGS=-lsfml-graphics -lsfml-window -lsfml-system
-CPP_FLAGS=-std=c++0x -ggdb
+CPP_FLAGS=-std=c++0x -ggdb -Iinc/
 
 PRINT=printf
 RM=rm -f

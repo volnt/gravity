@@ -1,4 +1,4 @@
-#include "../../Universe.hpp"
+#include "Universe.hpp"
 #include "Zoom.hpp"
 
 void Listener::Zoom::onEvent(const sf::Event &event, sf::View &view, sf::RenderWindow &window, Universe &universe)

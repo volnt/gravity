@@ -4,7 +4,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "../IListener.hpp"
+#include "IListener.hpp"
 
 namespace Listener
 {

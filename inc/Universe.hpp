@@ -13,6 +13,8 @@ private:
 public:
   void addObject(SpaceObject &);
 
+  SpaceObject *getObjectAt(const sf::Vector2<float> &) const;
+
   void update(float);
   virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };

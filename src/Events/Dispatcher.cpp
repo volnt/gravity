@@ -1,4 +1,4 @@
-#include "../Universe.hpp"
+#include "Universe.hpp"
 #include "Dispatcher.hpp"
 
 void Dispatcher::registerListener(IListener &listener)

@@ -1,4 +1,4 @@
-#include "../../Universe.hpp"
+#include "Universe.hpp"
 #include "Move.hpp"
 
 Listener::Move::Move(const std::vector<sf::Event::EventType> &eventTypes) : IListener(eventTypes)

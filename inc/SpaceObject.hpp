@@ -28,9 +28,10 @@ public:
   void setMass(const float);
   void setExists(const bool);
 
-  /* Methods */
+  /* Physics methods */
   void accelerate(const sf::Vector2<float> &);
   float getDistance(const SpaceObject &) const;
+  float getDistance(const sf::Vector2<float> &) const;
   void collide(SpaceObject &);
   void collide(std::vector<SpaceObject *> &);
   sf::Vector2<float> getGravitationalForce(const std::vector<SpaceObject *> &) const;

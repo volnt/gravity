@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 
-#include "../../Universe.hpp"
-#include "../../Planet.hpp"
+#include "Universe.hpp"
+#include "Planet.hpp"
 #include "CreatePlanet.hpp"
 
 void Listener::CreatePlanet::onEvent(const sf::Event &event, sf::View &view, sf::RenderWindow &window, Universe &universe)

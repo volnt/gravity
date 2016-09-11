@@ -10,11 +10,11 @@
 #include "Planet.hpp"
 #include "HUD.hpp"
 #include "FPS.hpp"
-#include "Events/Dispatcher.hpp"
-#include "Events/Listeners/Zoom.hpp"
-#include "Events/Listeners/Move.hpp"
-#include "Events/Listeners/Close.hpp"
-#include "Events/Listeners/CreatePlanet.hpp"
+#include "Dispatcher.hpp"
+#include "Zoom.hpp"
+#include "Move.hpp"
+#include "Close.hpp"
+#include "CreatePlanet.hpp"
 
 
 int main(void)
