@@ -9,7 +9,7 @@ FPS::FPS()
   _text.setCharacterSize(10);
 }
 
-void FPS::update(float elpasedTime)
+void FPS::update(float elpasedTime, const sf::RenderWindow &window, const sf::View &view, const Universe &)
 {
   _text.setString(std::to_string((int)(1.f / elpasedTime)) + " fps");
 }

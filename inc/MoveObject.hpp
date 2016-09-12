@@ -1,5 +1,5 @@
-#ifndef __MOVEPLANET_HPP__
-#define __MOVEPLANET_HPP__
+#ifndef __MOVEOBJECT_HPP__
+#define __MOVEOBJECT_HPP__
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -14,6 +14,7 @@ namespace Listener
     SpaceObject *_movingObject;
 
   public:
+    MoveObject(const std::vector<sf::Event::EventType> &);
     using IListener::IListener;
     virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &, Universe &);
   };

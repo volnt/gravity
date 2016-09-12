@@ -16,6 +16,7 @@
 #include "Close.hpp"
 #include "CreatePlanet.hpp"
 #include "MoveObject.hpp"
+#include "InfoPanel.hpp"
 
 
 int main(void)
@@ -31,17 +32,19 @@ int main(void)
   auto moveObject       = Listener::MoveObject(std::vector<sf::Event::EventType> {
       sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved });
   auto universe         = Universe();
-  auto earth            = Planet(5.f, 1, sf::Vector2<float>(300.f, 300.f));
+  auto earth            = Planet(5.f, 1000000000, sf::Vector2<float>(300.f, 300.f));
   auto elapsedTime      = 0.f;
   auto hud              = HUD();
   auto fps              = FPS();
+  auto infoPanel        = InfoPanel();
 
   hud.addObject(&fps);
+  hud.addObject(&infoPanel);
 
   earth.setFillColor(sf::Color::Blue);
   universe.addObject(earth);
 
-  window.setFramerateLimit(60);
+  // window.setFramerateLimit(60);
 
   dispatcher.registerListener(zoom);
   dispatcher.registerListener(close);
@@ -69,12 +72,12 @@ int main(void)
 
       /* Update & draw universe */
       window.setView(view);
-      universe.update(elapsedTime);
+      universe.update(elapsedTime, window, view);
       window.draw(universe);
 
       /* Update and draw HUD */
       window.setView(window.getDefaultView());
-      hud.update(elapsedTime);
+      hud.update(elapsedTime, window, view, universe);
       window.draw(hud);
 
       window.display();

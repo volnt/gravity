@@ -1,9 +1,16 @@
+#include <iostream>
 #include "Universe.hpp"
 
 void Universe::addObject(SpaceObject &object)
 {
   _objects.push_back(&object);
 }
+
+SpaceObject *Universe::getObjectAtCursor() const
+{
+  return (_objectAtCursor);
+}
+
 
 SpaceObject *Universe::getObjectAt(const sf::Vector2<float> &position) const
 {
@@ -17,8 +24,13 @@ SpaceObject *Universe::getObjectAt(const sf::Vector2<float> &position) const
   return (NULL);
 }
 
-void Universe::update(float elapsedTime)
+void Universe::update(float elapsedTime, const sf::RenderWindow &window, const sf::View &view)
 {
+  auto mousePosition = sf::Mouse::getPosition(window);
+  auto objectPosition = sf::Vector2<float>(window.mapPixelToCoords(mousePosition, view));
+
+  _objectAtCursor = getObjectAt(objectPosition);
+
   for (auto &object: _objects)
     {
       object->update(elapsedTime, _objects);

@@ -5,16 +5,18 @@
 #include "Planet.hpp"
 #include "MoveObject.hpp"
 
+Listener::MoveObject::MoveObject(const std::vector<sf::Event::EventType> &eventTypes) : IListener(eventTypes)
+{
+  _movingObject = NULL;
+}
+
 void Listener::MoveObject::onEvent(const sf::Event &event, sf::View &view, sf::RenderWindow &window, Universe &universe)
 {
   if (event.type == sf::Event::MouseButtonPressed)
     {
-      auto mousePosition = sf::Vector2<int>(event.mouseButton.x, event.mouseButton.y);
-      auto objectPosition = sf::Vector2<float>(window.mapPixelToCoords(mousePosition, view));
-
       if (event.mouseButton.button == sf::Mouse::Left)
         {
-          auto *object = universe.getObjectAt(objectPosition);
+          auto *object = universe.getObjectAtCursor();
           if (object)
             {
               _movingObject = object;

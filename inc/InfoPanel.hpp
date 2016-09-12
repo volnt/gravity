@@ -1,21 +1,22 @@
-#ifndef __FPS_HPP__
-#define __FPS_HPP__
+#ifndef __INFOPANEL_HPP__
+#define __INFOPANEL_HPP__
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "HUDObject.hpp"
+#include "Universe.hpp"
 
-class FPS: public HUDObject
+class InfoPanel: public HUDObject
 {
 private:
   sf::Font _font;
   sf::Text _text;
 
 public:
-  FPS();
+  InfoPanel();
   void update(float, const sf::RenderWindow &, const sf::View &, const Universe &);
-  virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+  virtual void draw(sf::RenderTarget &, sf::RenderStates) const;
 };
 
 #endif
