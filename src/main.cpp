@@ -46,7 +46,7 @@ int main(void)
   earth.setFillColor(sf::Color::Blue);
   universe.addObject(earth);
 
-  // window.setFramerateLimit(60);
+  window.setFramerateLimit(60);
 
   dispatcher.registerListener(zoom);
   dispatcher.registerListener(close);
