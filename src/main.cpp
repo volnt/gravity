@@ -15,6 +15,7 @@
 #include "Move.hpp"
 #include "Close.hpp"
 #include "CreatePlanet.hpp"
+#include "UniverseSpeed.hpp"
 #include "MoveObject.hpp"
 #include "InfoPanel.hpp"
 
@@ -31,6 +32,7 @@ int main(void)
   auto createPlanet     = Listener::CreatePlanet(std::vector<sf::Event::EventType> { sf::Event::MouseButtonPressed });
   auto moveObject       = Listener::MoveObject(std::vector<sf::Event::EventType> {
       sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved });
+  auto universeSpeed    = Listener::UniverseSpeed(std::vector<sf::Event::EventType> { sf::Event::KeyPressed });
   auto universe         = Universe();
   auto earth            = Planet(5.f, 1000000000, sf::Vector2<float>(300.f, 300.f));
   auto elapsedTime      = 0.f;
@@ -51,7 +53,7 @@ int main(void)
   dispatcher.registerListener(move);
   dispatcher.registerListener(createPlanet);
   dispatcher.registerListener(moveObject);
-
+  dispatcher.registerListener(universeSpeed);
 
   sf::Clock clock;
 

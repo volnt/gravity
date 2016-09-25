@@ -115,6 +115,6 @@ void SpaceObject::update(float elapsedTime, std::vector<SpaceObject *> &objects)
     {
       // this->collide(objects);
       this->accelerate(this->getGravitationalForce(objects) * elapsedTime);
-      this->move(this->getSpeed());
+      this->move(this->getSpeed() * elapsedTime);
     }
 }

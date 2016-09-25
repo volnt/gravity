@@ -10,8 +10,15 @@ class Universe: public sf::Drawable
 private:
   std::vector<SpaceObject *> _objects;
   SpaceObject *_objectAtCursor;
+  float _speed;
 
 public:
+  Universe();
+  Universe(float);
+
+  float getSpeed() const;
+  void increaseSpeed();
+  void decreaseSpeed();
   void addObject(SpaceObject &);
 
   SpaceObject *getObjectAtCursor() const;
