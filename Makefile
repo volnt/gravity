@@ -1,4 +1,4 @@
-BIN=game1
+BIN=universe
 SRC=$(shell find src/ -name "*.cpp")
 OBJ=$(patsubst src/%.cpp,obj/%.o,$(SRC))
 
@@ -28,7 +28,6 @@ fclean: clean
 	@$(PRINT) "Removing $(BIN).\n"
 	@$(RM) $(BIN)
 
-debug:
-	@$(PRINT) "SRC : $(SRC), OBJ : $(OBJ)"
-
 re: fclean all
+
+.PHONY: clean fclean re
