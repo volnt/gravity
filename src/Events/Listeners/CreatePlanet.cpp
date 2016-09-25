@@ -14,7 +14,7 @@ void Listener::CreatePlanet::onEvent(const sf::Event &event, sf::View &view, sf:
             {
               auto mousePosition = sf::Vector2<int>(event.mouseButton.x, event.mouseButton.y);
               auto planetPosition = sf::Vector2<float>(window.mapPixelToCoords(mousePosition, view));
-              auto *planet = new Planet(10.f, std::rand(), planetPosition);
+              auto *planet = new Planet(10.f, 1, planetPosition);
 
               planet->setFillColor(sf::Color::Blue);
               universe.addObject(*planet);

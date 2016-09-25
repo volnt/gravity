@@ -34,7 +34,9 @@ int main(void)
       sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved });
   auto universeSpeed    = Listener::UniverseSpeed(std::vector<sf::Event::EventType> { sf::Event::KeyPressed });
   auto universe         = Universe();
-  auto earth            = Planet(5.f, 1000000000, sf::Vector2<float>(300.f, 300.f));
+  auto sun              = Star(20.f, 1000000000, sf::Vector2<float>(400.f, 400.f));
+  auto earth            = Planet(6.f, 2, sf::Vector2<float>(200.f, 400.f));
+  auto mars             = Planet(4.f, 1, sf::Vector2<float>(600.f, 400.f));
   auto elapsedTime      = 0.f;
   auto hud              = HUD();
   auto fps              = FPS();
@@ -43,8 +45,14 @@ int main(void)
   hud.addObject(&fps);
   hud.addObject(&infoPanel);
 
+  earth.setSpeed(sf::Vector2<float>(0.f, -0.01));
   earth.setFillColor(sf::Color::Blue);
+  mars.setSpeed(sf::Vector2<float>(0.f, -0.02));
+  mars.setFillColor(sf::Color::Red);
+  sun.setFillColor(sf::Color::Yellow);
+  universe.addObject(sun);
   universe.addObject(earth);
+  universe.addObject(mars);
 
   window.setFramerateLimit(60);
 
