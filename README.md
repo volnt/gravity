@@ -8,8 +8,8 @@
 * Left click and move (on object) : Move a planet
 * Right click and move : Move the view
 * Scroll : Zoom
-* Press - : Slow down time
-* Press + : Speed up time
+* Press Down : Slow down time
+* Press Up : Speed up time
 
 # Installation
 
