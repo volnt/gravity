@@ -10,3 +10,14 @@
 * Scroll : Zoom
 * Press - : Slow down time
 * Press + : Speed up time
+
+# Installation
+
+```
+sudo apt-get update
+sudo apt-get install build-essential
+sudo apt-get install libsfml-dev
+make
+```
+
+Once the `make` is done you can launch the program with `./universe`.
