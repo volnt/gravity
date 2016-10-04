@@ -1,9 +1,7 @@
-#include <iostream>
 #include "Universe.hpp"
 
 Universe::Universe()
 {
-  std::cout << "Hello Universe !" << std::endl;
   _speed = 1.f;
 }
 
@@ -27,9 +25,19 @@ void Universe::decreaseSpeed()
   _speed /= 2.f;
 }
 
-void Universe::addObject(SpaceObject &object)
+void Universe::addObject(SpaceObject *object)
 {
-  _objects.push_back(&object);
+  _objects.push_back(object);
+}
+
+void Universe::addOverlay(sf::Drawable *overlay)
+{
+  _overlay.push_back(overlay);
+}
+
+void Universe::removeOverlay(sf::Drawable *overlay)
+{
+  _overlay.erase(std::remove(_overlay.begin(), _overlay.end(), overlay), _overlay.end());
 }
 
 SpaceObject *Universe::getObjectAtCursor() const
@@ -71,5 +79,9 @@ void Universe::draw(sf::RenderTarget &target, sf::RenderStates states) const
         {
           target.draw(*object, states);
         }
+    }
+  for (auto &overlay: _overlay)
+    {
+      target.draw(*overlay, states);
     }
 }

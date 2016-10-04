@@ -1,4 +1,3 @@
-#include <iostream>
 #include <iterator>
 #include <vector>
 #include <string>
@@ -29,7 +28,8 @@ int main(void)
   auto close            = Listener::Close(std::vector<sf::Event::EventType> { sf::Event::Closed });
   auto move             = Listener::Move(std::vector<sf::Event::EventType> {
       sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved });
-  auto createPlanet     = Listener::CreatePlanet(std::vector<sf::Event::EventType> { sf::Event::MouseButtonPressed });
+  auto createPlanet     = Listener::CreatePlanet(std::vector<sf::Event::EventType> {
+      sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved });
   auto moveObject       = Listener::MoveObject(std::vector<sf::Event::EventType> {
       sf::Event::MouseButtonPressed, sf::Event::MouseButtonReleased, sf::Event::MouseMoved });
   auto universeSpeed    = Listener::UniverseSpeed(std::vector<sf::Event::EventType> { sf::Event::KeyPressed });
@@ -50,9 +50,9 @@ int main(void)
   mars.setSpeed(sf::Vector2<float>(0.f, -0.02));
   mars.setFillColor(sf::Color::Red);
   sun.setFillColor(sf::Color::Yellow);
-  universe.addObject(sun);
-  universe.addObject(earth);
-  universe.addObject(mars);
+  universe.addObject(&sun);
+  universe.addObject(&earth);
+  universe.addObject(&mars);
 
   window.setFramerateLimit(60);
 

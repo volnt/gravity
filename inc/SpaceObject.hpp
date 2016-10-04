@@ -1,7 +1,6 @@
 #ifndef __SPACEOBJECT_HPP__
 #define __SPACEOBJECT_HPP__
 
-#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
