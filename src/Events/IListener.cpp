@@ -1,4 +1,3 @@
-#include <iostream>
 #include "IListener.hpp"
 
 IListener::IListener(const std::vector<sf::Event::EventType> &eventTypes)

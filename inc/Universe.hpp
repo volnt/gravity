@@ -9,6 +9,7 @@ class Universe: public sf::Drawable
 {
 private:
   std::vector<SpaceObject *> _objects;
+  std::vector<sf::Drawable *> _overlay;
   SpaceObject *_objectAtCursor;
   float _speed;
 
@@ -19,7 +20,9 @@ public:
   float getSpeed() const;
   void increaseSpeed();
   void decreaseSpeed();
-  void addObject(SpaceObject &);
+  void addObject(SpaceObject *);
+  void addOverlay(sf::Drawable *);
+  void removeOverlay(sf::Drawable *);
 
   SpaceObject *getObjectAtCursor() const;
   SpaceObject *getObjectAt(const sf::Vector2<float> &) const;

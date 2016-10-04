@@ -10,7 +10,11 @@ namespace Listener
 {
   class CreatePlanet: public IListener
   {
+  private:
+    SpaceObject *_movingObject;
+    sf::VertexArray *_speedLine;
   public:
+    CreatePlanet(const std::vector<sf::Event::EventType> &);
     using IListener::IListener;
     virtual void onEvent(const sf::Event &, sf::View &, sf::RenderWindow &, Universe &);
   };
