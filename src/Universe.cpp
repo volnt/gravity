@@ -45,6 +45,11 @@ SpaceObject *Universe::getObjectAtCursor() const
   return (_objectAtCursor);
 }
 
+const std::vector<SpaceObject *> &Universe::getObjects() const
+{
+  return (_objects);
+}
+
 
 SpaceObject *Universe::getObjectAt(const sf::Vector2<float> &position) const
 {
@@ -84,4 +89,14 @@ void Universe::draw(sf::RenderTarget &target, sf::RenderStates states) const
     {
       target.draw(*overlay, states);
     }
+}
+
+std::ostream &operator<<(std::ostream &os, const Universe &universe)
+{
+  for (auto &object: universe.getObjects())
+    {
+      os << *object;
+    }
+
+  return (os);
 }

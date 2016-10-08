@@ -26,9 +26,12 @@ public:
 
   SpaceObject *getObjectAtCursor() const;
   SpaceObject *getObjectAt(const sf::Vector2<float> &) const;
+  const std::vector<SpaceObject *> &getObjects() const;
+
 
   void update(float, const sf::RenderWindow &, const sf::View &);
   virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
 
+std::ostream &operator<<(std::ostream &os, const Universe &universe);
 #endif

@@ -118,3 +118,15 @@ void SpaceObject::update(float elapsedTime, std::vector<SpaceObject *> &objects)
       this->move(this->getSpeed() * elapsedTime);
     }
 }
+
+std::ostream &operator<<(std::ostream &os, const SpaceObject &object)
+{
+  os << object.getMass() << ",";
+  os << (int)object.getExists() << ",";
+  os << object.getSpeed().x << "," << object.getSpeed().y << ",";
+  os << object.getPosition().x << "," << object.getPosition().y << ",";
+  os << object.getRadius() << ",";
+  os << "\n";
+
+  return (os);
+}

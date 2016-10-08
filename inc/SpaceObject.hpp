@@ -38,4 +38,6 @@ public:
   void update(float, std::vector<SpaceObject *> &);
 };
 
+std::ostream &operator<<(std::ostream &os, const SpaceObject &object);
+
 #endif
