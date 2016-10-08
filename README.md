@@ -19,3 +19,8 @@ make
 ```
 
 Once the `make` is done you can launch the program with `./universe`.
+
+# Contribute
+
+Any contribution is welcome. There is a small list of issues that are ideas/bugs on the top of my mind but feel free to add issues about your own ideas.
+
