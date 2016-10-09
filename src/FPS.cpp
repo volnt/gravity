@@ -2,7 +2,7 @@
 
 FPS::FPS()
 {
-  _font.loadFromFile("VCR_OSD_Mono.ttf");
+  _font.loadFromFile("resources/VCR_OSD_Mono.ttf");
   _text.setFont(_font);
   _text.setPosition(20, 20);
   _text.setColor(sf::Color::White);
